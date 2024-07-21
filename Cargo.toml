@@ -1,0 +1,15 @@
+[package]
+name = "rai"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+reqwest = { version = "0.12.5", features = ["json"] }
+tokio = { version = "1.38.1", features = ["full"] }
+serde = { version = "1.0.195", features = ["derive"] }
+serde_json = "1.0.102"
+jsonwebtoken = "9.3.0"
+chrono = "0.4.38"
+anyhow = "1.0.86"
