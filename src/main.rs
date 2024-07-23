@@ -1,13 +1,21 @@
-use std::io::{self, Write};
+use std::{
+    io::{self, Write},
+    path::Path,
+};
 
 use anyhow::Result;
 use colored::Colorize;
-use rai::{get_content, read_message, show_message, write_content_to_file, Message};
+use rai::{get_content, read_message, show_message, verify_file, write_content_to_file, Message};
 
 #[tokio::main]
 async fn main() -> Result<()> {
     // 读取曾经的对话内容
-    let mut data = read_message()?;
+    // 定义文件路径
+    let path = Path::new("data.json");
+    // 验证文件是否存在 , 不存在的话创建文件
+    verify_file(path)?;
+
+    let mut data = read_message(path)?;
 
     // 判断记录中最后一次输入是不是 user , 是的话直接发起请求
     let last_message = &data.messages[&data.messages.len() - 1];
@@ -56,9 +64,6 @@ async fn main() -> Result<()> {
     }
 }
 
-// todo 添加角色分类 ,
-// todo 并且有清空历史记录的功能,
-// todo 运行时验证文件是否存在
 // todo 命令行参数
 //      todo 选择角色
 //      todo 清空历史记录

@@ -43,9 +43,7 @@ pub fn save_message(data: Data) -> Result<()> {
 }
 
 // 从文件中读取Data结构体
-pub fn read_message() -> Result<Data> {
-    // 定义文件路径
-    let path = Path::new("data.json");
+pub fn read_message(path: &Path) -> Result<Data> {
     // 从文件中读取JSON字符串
     let content = std::fs::read_to_string(path)?;
     // 将JSON字符串转换为Data结构体
