@@ -9,8 +9,22 @@ async fn main() -> Result<()> {
     // 读取曾经的对话内容
     let mut data = read_message()?;
 
+    // 判断记录中最后一次输入是不是 user , 是的话直接发起请求
+    let last_message = &data.messages[&data.messages.len() - 1];
+    if last_message.role == "user" {
+        let response = get_content(&data).await?;
+        // 将返回写入文件
+        write_content_to_file(
+            &mut data,
+            Message {
+                role: "assistant".to_string(),
+                content: response,
+            },
+        )?;
+    }
+
     // 显示所有记录
-    show_message(&data)?;
+    show_message(&data).await?;
     loop {
         // 获取用户新的输入
         print!("{}:", "user".green());
@@ -42,7 +56,6 @@ async fn main() -> Result<()> {
     }
 }
 
-// todo 如果历史记录中最后一次输入是 user , 则先请求响应
 // todo 添加角色分类 ,
 // todo 并且有清空历史记录的功能,
 // todo 运行时验证文件是否存在

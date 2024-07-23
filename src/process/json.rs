@@ -54,11 +54,11 @@ pub fn read_message() -> Result<Data> {
 }
 
 // 展示文件到终端作为历史记录
-pub fn show_message(data: &Data) -> Result<()> {
+pub async fn show_message(data: &Data) -> Result<()> {
     for message in &data.messages[2..] {
         if message.role == "assistant" {
             println!("\n{}: {}\n", message.role.blue(), message.content.purple());
-        } else {
+        } else if message.role == "user" {
             println!("\n{}: {}\n", message.role.green(), message.content);
         }
     }
