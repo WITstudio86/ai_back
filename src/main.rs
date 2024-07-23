@@ -1,38 +1,52 @@
+use std::io::{self, Write};
+
 use anyhow::Result;
-use rai::{get_content, read_message};
+use colored::Colorize;
+use rai::{get_content, read_message, show_message, write_content_to_file, Message};
 
 #[tokio::main]
 async fn main() -> Result<()> {
     // 读取曾经的对话内容
-    let data = read_message()?;
+    let mut data = read_message()?;
 
-    let response = get_content(data).await?;
-    println!("{:#?}", response);
+    // 显示所有记录
+    show_message(&data)?;
+    loop {
+        // 获取用户新的输入
+        print!("{}:", "user".green());
+        io::stdout().flush()?; // 确保打印的内容立即显示
+        let mut input = String::new();
+        std::io::stdin().read_line(&mut input)?;
+        let input = input.trim().to_string();
 
-    Ok(())
-}
+        // 将新输入写入到 data 中
+        data.messages.push(Message {
+            role: "user".to_string(),
+            content: input,
+        });
 
-#[cfg(test)]
-mod test {
-    use rai::{Data, Message};
+        // 获取响应的内容
+        let response = get_content(&data).await?;
 
-    use super::*;
-    #[test]
-    fn test_read_messagee() {
-        let data = read_message().unwrap();
-        let target = Data{
-            model: "glm-4-flash".to_string(),
-            messages: vec![
-                Message{
-                    role:"system".to_string(),
-                    content:"你是一个乐于解答各种问题的助手，你的任务是为用户提供专业、准确、有见地的建议".to_string()
-                },
-                Message{
-                    role:"user".to_string(),
-                    content:"你好".to_string()
-                }]
-        };
+        // 输出响应内容
+        println!("\n{}:{}\n", "assistant".blue(), response.purple());
 
-        assert_eq!(data, target);
+        // 将返回写入文件
+        write_content_to_file(
+            &mut data,
+            Message {
+                role: "assistant".to_string(),
+                content: response,
+            },
+        )?;
     }
 }
+
+// todo 如果历史记录中最后一次输入是 user , 则先请求响应
+// todo 添加角色分类 ,
+// todo 并且有清空历史记录的功能,
+// todo 运行时验证文件是否存在
+// todo 命令行参数
+//      todo 选择角色
+//      todo 清空历史记录
+//      todo 清空指定角色的历史记录
