@@ -2,6 +2,7 @@
 name = "rai"
 version = "0.1.0"
 edition = "2021"
+authors = ["WITStudio", "1656800105@qq.com"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -14,3 +15,4 @@ jsonwebtoken = "9.3.0"
 chrono = "0.4.38"
 anyhow = "1.0.86"
 colored = "2.1.0"
+clap = { version = "4.5.9", features = ["derive"] }

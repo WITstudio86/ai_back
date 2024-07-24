@@ -33,6 +33,8 @@ async fn main() -> Result<()> {
 
     // 显示所有记录
     show_message(&data).await?;
+
+    // 进入主循环不断询问
     loop {
         // 获取用户新的输入
         print!("{}:", "user".green());
@@ -68,3 +70,4 @@ async fn main() -> Result<()> {
 //      todo 选择角色
 //      todo 清空历史记录
 //      todo 清空指定角色的历史记录
+//      todo 鉴权码
