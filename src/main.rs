@@ -57,3 +57,7 @@ async fn main() -> Result<()> {
 
 // todo 命令行参数
 //      todo 鉴权码
+//      todo gui
+//      todo 更新系统
+//      todo 优化同步请求为流请求 , 优化用户体验
+//      todo 跨平台
