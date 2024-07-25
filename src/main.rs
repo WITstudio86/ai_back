@@ -7,7 +7,7 @@ use rai::{chat_with, Arg, Command, Figure};
 #[tokio::main]
 async fn main() -> Result<()> {
     let args = Arg::try_parse()?;
-    println!("args: {:?}", &args);
+
     // 获取指令
     match args.cmd {
         Command::Clear(target) => {
@@ -52,11 +52,12 @@ async fn main() -> Result<()> {
             }
         }
     }
-    return Ok(());
+
+    Ok(())
 }
 
 // todo 命令行参数
-//      todo 鉴权码
+//      todo 创建服务在请求的时候返回 鉴权码
 //      todo gui
 //      todo 更新系统
 //      todo 优化同步请求为流请求 , 优化用户体验
