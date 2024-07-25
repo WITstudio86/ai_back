@@ -1,5 +1,6 @@
-mod const_var;
-pub use const_var::API_URL;
+pub const API_URL: &str = "https://open.bigmodel.cn/api/paas/v4/chat/completions";
+pub const CONFIG_PATH: &str = "rai.toml";
+
 mod ai;
 pub use ai::Gpt;
 mod argument;

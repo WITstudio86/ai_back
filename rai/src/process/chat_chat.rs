@@ -6,10 +6,10 @@ use std::{
 use anyhow::Result;
 use colored::Colorize;
 
-use crate::{Config, Data, Figure, Gpt, Message, API_URL};
+use crate::{Config, Data, Figure, Gpt, Message, API_URL, CONFIG_PATH};
 
 pub async fn chat_with(figure: Figure) -> Result<()> {
-    let config = Config::from_toml("rai.toml");
+    let config = Config::from_toml(CONFIG_PATH);
     let token = config.get_token().to_string();
     // 创建 gpt
     let gpt = Gpt::new(token, API_URL);
