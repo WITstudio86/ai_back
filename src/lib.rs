@@ -1,5 +1,5 @@
 mod const_var;
-pub use const_var::{API_KEY, API_URL};
+pub use const_var::API_URL;
 mod ai;
 pub use ai::Gpt;
 mod argument;
