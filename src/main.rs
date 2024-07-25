@@ -57,7 +57,7 @@ async fn main() -> Result<()> {
 }
 
 // todo 命令行参数
-//      todo 创建服务在请求的时候返回 鉴权码
+//      todo 创建服 务在请求的时候返回 鉴权码
 //      todo gui
 //      todo 更新系统
 //      todo 优化输出形式 , 提升用户体验
